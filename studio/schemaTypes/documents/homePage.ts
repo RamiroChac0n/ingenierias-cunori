@@ -1,0 +1,90 @@
+import {defineField, defineType} from 'sanity'
+
+export const homePage = defineType({
+  name: 'homePage',
+  title: 'Home',
+  type: 'document',
+  groups: [
+    {name: 'hero', title: 'Hero', default: true},
+    {name: 'sobreNosotros', title: 'Sobre Nosotros'},
+    {name: 'egresados', title: 'Egresados'},
+    {name: 'videos', title: 'Videos'},
+  ],
+  fields: [
+    defineField({
+      name: 'heroTitulo',
+      title: 'Título del Hero',
+      type: 'string',
+      group: 'hero',
+      validation: (Rule) => Rule.required(),
+    }),
+    defineField({
+      name: 'heroSubtitulo',
+      title: 'Subtítulo del Hero',
+      type: 'string',
+      group: 'hero',
+      validation: (Rule) => Rule.required(),
+    }),
+    defineField({
+      name: 'heroCtaTexto1',
+      title: 'Texto botón 1 (CTA) — enlaza a Nuevo Ingreso',
+      type: 'string',
+      group: 'hero',
+      validation: (Rule) => Rule.required(),
+    }),
+    defineField({
+      name: 'heroCtaTexto2',
+      title: 'Texto botón 2 (CTA) — enlaza a Noticias',
+      type: 'string',
+      group: 'hero',
+      validation: (Rule) => Rule.required(),
+    }),
+    defineField({
+      name: 'heroImagen',
+      title: 'Imagen de fondo del Hero',
+      type: 'image',
+      group: 'hero',
+      options: {hotspot: true},
+      validation: (Rule) => Rule.required(),
+    }),
+    defineField({
+      name: 'mision',
+      title: 'Misión',
+      type: 'text',
+      group: 'sobreNosotros',
+      validation: (Rule) => Rule.required(),
+    }),
+    defineField({
+      name: 'vision',
+      title: 'Visión',
+      type: 'text',
+      group: 'sobreNosotros',
+      validation: (Rule) => Rule.required(),
+    }),
+    defineField({
+      name: 'egresados',
+      title: 'Fotos de egresados destacados',
+      type: 'array',
+      group: 'egresados',
+      of: [{type: 'egresado'}],
+    }),
+    defineField({
+      name: 'videosDestacados',
+      title: 'Videos destacados',
+      type: 'array',
+      group: 'videos',
+      of: [{type: 'videoDestacado'}],
+    }),
+    defineField({
+      name: 'youtubeChannelUrl',
+      title: 'Link al canal de YouTube',
+      type: 'url',
+      group: 'videos',
+      validation: (Rule) => Rule.uri({scheme: ['http', 'https']}),
+    }),
+  ],
+  preview: {
+    select: {title: 'heroTitulo'},
+    prepare: ({title}) => ({title: title ?? 'Home', subtitle: 'Página de inicio'}),
+  },
+})
