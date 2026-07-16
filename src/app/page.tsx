@@ -1,6 +1,7 @@
 import { client } from "@/lib/sanity/client";
 import { SITE_SETTINGS_QUERY } from "@/lib/sanity/queries/siteSettings";
-import { HOME_CAREERS_QUERY, HOME_PAGE_QUERY } from "@/lib/sanity/queries/home";
+import { HOME_PAGE_QUERY } from "@/lib/sanity/queries/home";
+import { CARRERAS_LIST_QUERY } from "@/lib/sanity/queries/carreras";
 import { Hero } from "@/components/home/Hero";
 import { CareersGrid } from "@/components/home/CareersGrid";
 import { AboutSection } from "@/components/home/AboutSection";
@@ -13,7 +14,7 @@ const options = { next: { revalidate: 60 } };
 export default async function Home() {
   const [home, careers, siteSettings] = await Promise.all([
     client.fetch(HOME_PAGE_QUERY, {}, options),
-    client.fetch(HOME_CAREERS_QUERY, {}, options),
+    client.fetch(CARRERAS_LIST_QUERY, {}, options),
     client.fetch(SITE_SETTINGS_QUERY, {}, options),
   ]);
 

@@ -1,8 +1,8 @@
 import { CareerCard } from "@/components/career/CareerCard";
-import type { HOME_CAREERS_QUERY_RESULT } from "@/sanity.types";
+import type { CARRERAS_LIST_QUERY_RESULT } from "@/sanity.types";
 
 type CareersGridProps = {
-  careers: HOME_CAREERS_QUERY_RESULT;
+  careers: CARRERAS_LIST_QUERY_RESULT;
 };
 
 export function CareersGrid({ careers }: CareersGridProps) {

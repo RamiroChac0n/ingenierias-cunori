@@ -383,6 +383,46 @@ export type AllSanitySchemaTypes =
   | SanityImageAsset
   | Geopoint;
 
+// Source: ../src/lib/sanity/queries/carreras.ts
+// Variable: CARRERAS_LIST_QUERY
+// Query: *[_type == "carrera"] | order(lower(nombre) asc) {    nombre,    "slug": slug.current,    descripcionCorta  }
+export type CARRERAS_LIST_QUERY_RESULT = Array<{
+  nombre: string;
+  slug: string;
+  descripcionCorta: string;
+}>;
+
+// Source: ../src/lib/sanity/queries/carreras.ts
+// Variable: CARRERA_SLUGS_QUERY
+// Query: *[_type == "carrera" && defined(slug.current)] {    "slug": slug.current  }
+export type CARRERA_SLUGS_QUERY_RESULT = Array<{
+  slug: string;
+}>;
+
+// Source: ../src/lib/sanity/queries/carreras.ts
+// Variable: CARRERA_BY_SLUG_QUERY
+// Query: *[_type == "carrera" && slug.current == $slug][0] {    nombre,    "slug": slug.current,    descripcionCorta,    semestres,    creditos,    sistemaCreditos,    areasAcademicas,    pensumImages,    "pensumPdfUrl": pensumPdf.asset->url,    updateNote,    lastUpdated  }
+export type CARRERA_BY_SLUG_QUERY_RESULT = {
+  nombre: string;
+  slug: string;
+  descripcionCorta: string;
+  semestres: number;
+  creditos: number;
+  sistemaCreditos: "CLAR" | "tradicional";
+  areasAcademicas: Array<string>;
+  pensumImages: Array<{
+    asset?: SanityImageAssetReference;
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    _type: "image";
+    _key: string;
+  }>;
+  pensumPdfUrl: string | null;
+  updateNote: string | null;
+  lastUpdated: string;
+} | null;
+
 // Source: ../src/lib/sanity/queries/home.ts
 // Variable: HOME_PAGE_QUERY
 // Query: *[_id == "homePage" && _type == "homePage"][0]
@@ -418,15 +458,6 @@ export type HOME_PAGE_QUERY_RESULT = {
   youtubeChannelUrl?: string;
 } | null;
 
-// Source: ../src/lib/sanity/queries/home.ts
-// Variable: HOME_CAREERS_QUERY
-// Query: *[_type == "carrera"] | order(lower(nombre) asc) {    nombre,    "slug": slug.current,    descripcionCorta  }
-export type HOME_CAREERS_QUERY_RESULT = Array<{
-  nombre: string;
-  slug: string;
-  descripcionCorta: string;
-}>;
-
 // Source: ../src/lib/sanity/queries/siteSettings.ts
 // Variable: SITE_SETTINGS_QUERY
 // Query: *[_id == "siteSettings" && _type == "siteSettings"][0]
@@ -460,8 +491,10 @@ export type SITE_SETTINGS_QUERY_RESULT = {
 import "@sanity/client";
 declare module "@sanity/client" {
   interface SanityQueries {
+    '\n  *[_type == "carrera"] | order(lower(nombre) asc) {\n    nombre,\n    "slug": slug.current,\n    descripcionCorta\n  }\n': CARRERAS_LIST_QUERY_RESULT;
+    '\n  *[_type == "carrera" && defined(slug.current)] {\n    "slug": slug.current\n  }\n': CARRERA_SLUGS_QUERY_RESULT;
+    '\n  *[_type == "carrera" && slug.current == $slug][0] {\n    nombre,\n    "slug": slug.current,\n    descripcionCorta,\n    semestres,\n    creditos,\n    sistemaCreditos,\n    areasAcademicas,\n    pensumImages,\n    "pensumPdfUrl": pensumPdf.asset->url,\n    updateNote,\n    lastUpdated\n  }\n': CARRERA_BY_SLUG_QUERY_RESULT;
     '*[_id == "homePage" && _type == "homePage"][0]': HOME_PAGE_QUERY_RESULT;
-    '\n  *[_type == "carrera"] | order(lower(nombre) asc) {\n    nombre,\n    "slug": slug.current,\n    descripcionCorta\n  }\n': HOME_CAREERS_QUERY_RESULT;
     '*[_id == "siteSettings" && _type == "siteSettings"][0]': SITE_SETTINGS_QUERY_RESULT;
   }
 }
