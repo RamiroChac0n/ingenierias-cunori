@@ -3,7 +3,7 @@ import { SITE_SETTINGS_QUERY } from "@/lib/sanity/queries/siteSettings";
 import { HOME_PAGE_QUERY } from "@/lib/sanity/queries/home";
 import { CARRERAS_LIST_QUERY } from "@/lib/sanity/queries/carreras";
 import { Hero } from "@/components/home/Hero";
-import { CareersGrid } from "@/components/home/CareersGrid";
+import { CareersGrid } from "@/components/career/CareersGrid";
 import { AboutSection } from "@/components/home/AboutSection";
 import { AlumniGrid } from "@/components/home/AlumniGrid";
 import { VideoGrid } from "@/components/home/VideoGrid";

@@ -38,7 +38,7 @@ export default async function RootLayout({
     >
       <body className="flex min-h-full flex-col">
         <Navbar siteName={siteSettings?.nombreInstitucional} logoUrl={logoUrl} />
-        <main className="flex flex-1 flex-col">{children}</main>
+        <main className="flex-1">{children}</main>
         <Footer
           siteName={siteSettings?.nombreInstitucional}
           logoUrl={logoUrl}

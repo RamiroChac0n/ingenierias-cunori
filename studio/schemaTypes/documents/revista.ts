@@ -18,6 +18,13 @@ export const revista = defineType({
       validation: (Rule) => Rule.required(),
     }),
     defineField({
+      name: 'portadaEdicionActual',
+      title: 'Portada de la edición actual',
+      description: 'Opcional — si queda vacía, la tarjeta de edición actual se muestra sin portada.',
+      type: 'image',
+      options: {hotspot: true},
+    }),
+    defineField({
       name: 'linkEdicionActual',
       title: 'Link edición actual',
       type: 'url',

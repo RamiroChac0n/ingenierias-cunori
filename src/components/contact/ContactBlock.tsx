@@ -7,7 +7,8 @@ type ContactBlockProps = {
   siteSettings: NonNullable<SITE_SETTINGS_QUERY_RESULT>;
   title?: string;
   id?: string;
-  showMapAndWhatsapp?: boolean;
+  showMap?: boolean;
+  showWhatsapp?: boolean;
   showSocial?: boolean;
 };
 
@@ -15,7 +16,8 @@ export function ContactBlock({
   siteSettings,
   title = "Contáctanos",
   id = "contacto",
-  showMapAndWhatsapp = true,
+  showMap = true,
+  showWhatsapp = true,
   showSocial = false,
 }: ContactBlockProps) {
   const { telefono, email, direccion, mapsUrl, mapsEmbedUrl, whatsapp } = siteSettings;
@@ -57,10 +59,10 @@ export function ContactBlock({
           )}
         </div>
 
-        {showMapAndWhatsapp && (mapsEmbedUrl || whatsapp) && (
+        {((showMap && mapsEmbedUrl) || (showWhatsapp && whatsapp)) && (
           <div className="mt-6 grid gap-6 sm:grid-cols-2">
-            <MapEmbed embedUrl={mapsEmbedUrl} />
-            {whatsapp && (
+            {showMap && <MapEmbed embedUrl={mapsEmbedUrl} />}
+            {showWhatsapp && whatsapp && (
               <div className="flex flex-col items-start justify-center gap-3 rounded-lg border border-black/10 p-6">
                 <p>¿Prefieres chatear?</p>
                 <WhatsAppButton whatsapp={whatsapp} />

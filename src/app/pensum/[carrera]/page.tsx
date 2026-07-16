@@ -61,7 +61,7 @@ export default async function PensumPage({ params }: PageProps) {
         <PensumGallery images={carrera.pensumImages} pdfUrl={carrera.pensumPdfUrl} />
       </div>
       {siteSettings && (
-        <ContactBlock siteSettings={siteSettings} title="Contacto" showMapAndWhatsapp={false} />
+        <ContactBlock siteSettings={siteSettings} title="Contacto" showMap={false} showWhatsapp={false} />
       )}
     </>
   );

@@ -101,6 +101,13 @@ export type Revista = {
   _rev: string;
   nombreRevista: string;
   descripcion: string;
+  portadaEdicionActual?: {
+    asset?: SanityImageAssetReference;
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    _type: "image";
+  };
   linkEdicionActual: string;
   anioEdicionActual: number;
   linkListadoEdicionesAnteriores?: string;
@@ -423,6 +430,47 @@ export type CARRERA_BY_SLUG_QUERY_RESULT = {
   lastUpdated: string;
 } | null;
 
+// Source: ../src/lib/sanity/queries/galeria.ts
+// Variable: EVENTOS_LIST_QUERY
+// Query: *[_type == "evento" && defined(slug.current)] | order(fechaEvento desc) {    tituloEvento,    "slug": slug.current,    fechaEvento,    imagenPortada  }
+export type EVENTOS_LIST_QUERY_RESULT = Array<{
+  tituloEvento: string;
+  slug: string;
+  fechaEvento: string;
+  imagenPortada: {
+    asset?: SanityImageAssetReference;
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    _type: "image";
+  };
+}>;
+
+// Source: ../src/lib/sanity/queries/galeria.ts
+// Variable: EVENTO_SLUGS_QUERY
+// Query: *[_type == "evento" && defined(slug.current)] {    "slug": slug.current  }
+export type EVENTO_SLUGS_QUERY_RESULT = Array<{
+  slug: string;
+}>;
+
+// Source: ../src/lib/sanity/queries/galeria.ts
+// Variable: EVENTO_BY_SLUG_QUERY
+// Query: *[_type == "evento" && slug.current == $slug][0] {    tituloEvento,    "slug": slug.current,    fechaEvento,    descripcion,    fotosAlbum  }
+export type EVENTO_BY_SLUG_QUERY_RESULT = {
+  tituloEvento: string;
+  slug: string;
+  fechaEvento: string;
+  descripcion: string | null;
+  fotosAlbum: Array<{
+    asset?: SanityImageAssetReference;
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    _type: "image";
+    _key: string;
+  }>;
+} | null;
+
 // Source: ../src/lib/sanity/queries/home.ts
 // Variable: HOME_PAGE_QUERY
 // Query: *[_id == "homePage" && _type == "homePage"][0]
@@ -526,6 +574,85 @@ export type NOTICIA_NEXT_QUERY_RESULT = {
   slug: string;
 } | null;
 
+// Source: ../src/lib/sanity/queries/nuevoIngreso.ts
+// Variable: NUEVO_INGRESO_QUERY
+// Query: *[_id == "nuevoIngreso" && _type == "nuevoIngreso"][0]
+export type NUEVO_INGRESO_QUERY_RESULT = {
+  _id: "nuevoIngreso";
+  _type: "nuevoIngreso";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  titulo: string;
+  subtitulo: string;
+  pasosAdmision: Array<
+    {
+      _key: string;
+    } & PasoAdmision
+  >;
+  requisitos: Array<string>;
+  fechasImportantes?: Array<
+    {
+      _key: string;
+    } & FechaImportante
+  >;
+  whatsapp?: string;
+} | null;
+
+// Source: ../src/lib/sanity/queries/revista.ts
+// Variable: REVISTA_QUERY
+// Query: *[_id == "revista" && _type == "revista"][0]
+export type REVISTA_QUERY_RESULT = {
+  _id: "revista";
+  _type: "revista";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  nombreRevista: string;
+  descripcion: string;
+  portadaEdicionActual?: {
+    asset?: SanityImageAssetReference;
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    _type: "image";
+  };
+  linkEdicionActual: string;
+  anioEdicionActual: number;
+  linkListadoEdicionesAnteriores?: string;
+  emailContacto: string;
+} | null;
+
+// Source: ../src/lib/sanity/queries/search.ts
+// Variable: SEARCH_QUERY
+// Query: *[    (_type == "noticia" && defined(slug.current) && titulo match $q) ||    (_type == "carrera" && defined(slug.current) && nombre match $q) ||    (_type == "evento" && defined(slug.current) && tituloEvento match $q) ||    (_type == "revista" && nombreRevista match $q)  ] | order(_type asc) {    _type,    _id,    "title": coalesce(titulo, nombre, tituloEvento, nombreRevista),    "href": select(      _type == "noticia" => "/noticias/" + slug.current,      _type == "carrera" => "/pensum/" + slug.current,      _type == "evento" => "/galeria/" + slug.current,      _type == "revista" => "/revista"    )  }
+export type SEARCH_QUERY_RESULT = Array<
+  | {
+      _type: "carrera";
+      _id: string;
+      title: string;
+      href: string;
+    }
+  | {
+      _type: "evento";
+      _id: string;
+      title: string;
+      href: string;
+    }
+  | {
+      _type: "noticia";
+      _id: string;
+      title: string;
+      href: string;
+    }
+  | {
+      _type: "revista";
+      _id: string;
+      title: string;
+      href: "/revista";
+    }
+>;
+
 // Source: ../src/lib/sanity/queries/siteSettings.ts
 // Variable: SITE_SETTINGS_QUERY
 // Query: *[_id == "siteSettings" && _type == "siteSettings"][0]
@@ -562,6 +689,9 @@ declare module "@sanity/client" {
     '\n  *[_type == "carrera"] | order(lower(nombre) asc) {\n    nombre,\n    "slug": slug.current,\n    descripcionCorta\n  }\n': CARRERAS_LIST_QUERY_RESULT;
     '\n  *[_type == "carrera" && defined(slug.current)] {\n    "slug": slug.current\n  }\n': CARRERA_SLUGS_QUERY_RESULT;
     '\n  *[_type == "carrera" && slug.current == $slug][0] {\n    nombre,\n    "slug": slug.current,\n    descripcionCorta,\n    semestres,\n    creditos,\n    sistemaCreditos,\n    areasAcademicas,\n    pensumImages,\n    "pensumPdfUrl": pensumPdf.asset->url,\n    updateNote,\n    lastUpdated\n  }\n': CARRERA_BY_SLUG_QUERY_RESULT;
+    '\n  *[_type == "evento" && defined(slug.current)] | order(fechaEvento desc) {\n    tituloEvento,\n    "slug": slug.current,\n    fechaEvento,\n    imagenPortada\n  }\n': EVENTOS_LIST_QUERY_RESULT;
+    '\n  *[_type == "evento" && defined(slug.current)] {\n    "slug": slug.current\n  }\n': EVENTO_SLUGS_QUERY_RESULT;
+    '\n  *[_type == "evento" && slug.current == $slug][0] {\n    tituloEvento,\n    "slug": slug.current,\n    fechaEvento,\n    descripcion,\n    fotosAlbum\n  }\n': EVENTO_BY_SLUG_QUERY_RESULT;
     '*[_id == "homePage" && _type == "homePage"][0]': HOME_PAGE_QUERY_RESULT;
     '\n  *[_type == "noticia" && defined(slug.current)] | order(fechaPublicacion desc) [$start...$end] {\n    titulo,\n    "slug": slug.current,\n    fechaPublicacion,\n    autor,\n    tipoPost,\n    imagenDestacada\n  }\n': NOTICIAS_LIST_QUERY_RESULT;
     '\n  count(*[_type == "noticia" && defined(slug.current)])\n': NOTICIAS_COUNT_QUERY_RESULT;
@@ -569,6 +699,9 @@ declare module "@sanity/client" {
     '\n  *[_type == "noticia" && slug.current == $slug][0] {\n    titulo,\n    "slug": slug.current,\n    fechaPublicacion,\n    autor,\n    tipoPost,\n    imagenDestacada,\n    "documentoPdfUrl": documentoPdf.asset->url,\n    "documentoPdfName": documentoPdf.asset->originalFilename,\n    urlExterna,\n    fuenteEnlace\n  }\n': NOTICIA_BY_SLUG_QUERY_RESULT;
     '\n  *[_type == "noticia" && defined(slug.current) && fechaPublicacion < $fecha] | order(fechaPublicacion desc) [0] {\n    titulo,\n    "slug": slug.current\n  }\n': NOTICIA_PREV_QUERY_RESULT;
     '\n  *[_type == "noticia" && defined(slug.current) && fechaPublicacion > $fecha] | order(fechaPublicacion asc) [0] {\n    titulo,\n    "slug": slug.current\n  }\n': NOTICIA_NEXT_QUERY_RESULT;
+    '*[_id == "nuevoIngreso" && _type == "nuevoIngreso"][0]': NUEVO_INGRESO_QUERY_RESULT;
+    '*[_id == "revista" && _type == "revista"][0]': REVISTA_QUERY_RESULT;
+    '\n  *[\n    (_type == "noticia" && defined(slug.current) && titulo match $q) ||\n    (_type == "carrera" && defined(slug.current) && nombre match $q) ||\n    (_type == "evento" && defined(slug.current) && tituloEvento match $q) ||\n    (_type == "revista" && nombreRevista match $q)\n  ] | order(_type asc) {\n    _type,\n    _id,\n    "title": coalesce(titulo, nombre, tituloEvento, nombreRevista),\n    "href": select(\n      _type == "noticia" => "/noticias/" + slug.current,\n      _type == "carrera" => "/pensum/" + slug.current,\n      _type == "evento" => "/galeria/" + slug.current,\n      _type == "revista" => "/revista"\n    )\n  }\n': SEARCH_QUERY_RESULT;
     '*[_id == "siteSettings" && _type == "siteSettings"][0]': SITE_SETTINGS_QUERY_RESULT;
   }
 }
