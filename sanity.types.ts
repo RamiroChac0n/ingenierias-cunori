@@ -458,6 +458,74 @@ export type HOME_PAGE_QUERY_RESULT = {
   youtubeChannelUrl?: string;
 } | null;
 
+// Source: ../src/lib/sanity/queries/noticias.ts
+// Variable: NOTICIAS_LIST_QUERY
+// Query: *[_type == "noticia" && defined(slug.current)] | order(fechaPublicacion desc) [$start...$end] {    titulo,    "slug": slug.current,    fechaPublicacion,    autor,    tipoPost,    imagenDestacada  }
+export type NOTICIAS_LIST_QUERY_RESULT = Array<{
+  titulo: string;
+  slug: string;
+  fechaPublicacion: string;
+  autor: string;
+  tipoPost: "documento" | "enlace_externo";
+  imagenDestacada: {
+    asset?: SanityImageAssetReference;
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    _type: "image";
+  };
+}>;
+
+// Source: ../src/lib/sanity/queries/noticias.ts
+// Variable: NOTICIAS_COUNT_QUERY
+// Query: count(*[_type == "noticia" && defined(slug.current)])
+export type NOTICIAS_COUNT_QUERY_RESULT = number;
+
+// Source: ../src/lib/sanity/queries/noticias.ts
+// Variable: NOTICIA_SLUGS_QUERY
+// Query: *[_type == "noticia" && defined(slug.current)] {    "slug": slug.current  }
+export type NOTICIA_SLUGS_QUERY_RESULT = Array<{
+  slug: string;
+}>;
+
+// Source: ../src/lib/sanity/queries/noticias.ts
+// Variable: NOTICIA_BY_SLUG_QUERY
+// Query: *[_type == "noticia" && slug.current == $slug][0] {    titulo,    "slug": slug.current,    fechaPublicacion,    autor,    tipoPost,    imagenDestacada,    "documentoPdfUrl": documentoPdf.asset->url,    "documentoPdfName": documentoPdf.asset->originalFilename,    urlExterna,    fuenteEnlace  }
+export type NOTICIA_BY_SLUG_QUERY_RESULT = {
+  titulo: string;
+  slug: string;
+  fechaPublicacion: string;
+  autor: string;
+  tipoPost: "documento" | "enlace_externo";
+  imagenDestacada: {
+    asset?: SanityImageAssetReference;
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    _type: "image";
+  };
+  documentoPdfUrl: string | null;
+  documentoPdfName: string | null;
+  urlExterna: string | null;
+  fuenteEnlace: string | null;
+} | null;
+
+// Source: ../src/lib/sanity/queries/noticias.ts
+// Variable: NOTICIA_PREV_QUERY
+// Query: *[_type == "noticia" && defined(slug.current) && fechaPublicacion < $fecha] | order(fechaPublicacion desc) [0] {    titulo,    "slug": slug.current  }
+export type NOTICIA_PREV_QUERY_RESULT = {
+  titulo: string;
+  slug: string;
+} | null;
+
+// Source: ../src/lib/sanity/queries/noticias.ts
+// Variable: NOTICIA_NEXT_QUERY
+// Query: *[_type == "noticia" && defined(slug.current) && fechaPublicacion > $fecha] | order(fechaPublicacion asc) [0] {    titulo,    "slug": slug.current  }
+export type NOTICIA_NEXT_QUERY_RESULT = {
+  titulo: string;
+  slug: string;
+} | null;
+
 // Source: ../src/lib/sanity/queries/siteSettings.ts
 // Variable: SITE_SETTINGS_QUERY
 // Query: *[_id == "siteSettings" && _type == "siteSettings"][0]
@@ -495,6 +563,12 @@ declare module "@sanity/client" {
     '\n  *[_type == "carrera" && defined(slug.current)] {\n    "slug": slug.current\n  }\n': CARRERA_SLUGS_QUERY_RESULT;
     '\n  *[_type == "carrera" && slug.current == $slug][0] {\n    nombre,\n    "slug": slug.current,\n    descripcionCorta,\n    semestres,\n    creditos,\n    sistemaCreditos,\n    areasAcademicas,\n    pensumImages,\n    "pensumPdfUrl": pensumPdf.asset->url,\n    updateNote,\n    lastUpdated\n  }\n': CARRERA_BY_SLUG_QUERY_RESULT;
     '*[_id == "homePage" && _type == "homePage"][0]': HOME_PAGE_QUERY_RESULT;
+    '\n  *[_type == "noticia" && defined(slug.current)] | order(fechaPublicacion desc) [$start...$end] {\n    titulo,\n    "slug": slug.current,\n    fechaPublicacion,\n    autor,\n    tipoPost,\n    imagenDestacada\n  }\n': NOTICIAS_LIST_QUERY_RESULT;
+    '\n  count(*[_type == "noticia" && defined(slug.current)])\n': NOTICIAS_COUNT_QUERY_RESULT;
+    '\n  *[_type == "noticia" && defined(slug.current)] {\n    "slug": slug.current\n  }\n': NOTICIA_SLUGS_QUERY_RESULT;
+    '\n  *[_type == "noticia" && slug.current == $slug][0] {\n    titulo,\n    "slug": slug.current,\n    fechaPublicacion,\n    autor,\n    tipoPost,\n    imagenDestacada,\n    "documentoPdfUrl": documentoPdf.asset->url,\n    "documentoPdfName": documentoPdf.asset->originalFilename,\n    urlExterna,\n    fuenteEnlace\n  }\n': NOTICIA_BY_SLUG_QUERY_RESULT;
+    '\n  *[_type == "noticia" && defined(slug.current) && fechaPublicacion < $fecha] | order(fechaPublicacion desc) [0] {\n    titulo,\n    "slug": slug.current\n  }\n': NOTICIA_PREV_QUERY_RESULT;
+    '\n  *[_type == "noticia" && defined(slug.current) && fechaPublicacion > $fecha] | order(fechaPublicacion asc) [0] {\n    titulo,\n    "slug": slug.current\n  }\n': NOTICIA_NEXT_QUERY_RESULT;
     '*[_id == "siteSettings" && _type == "siteSettings"][0]': SITE_SETTINGS_QUERY_RESULT;
   }
 }
