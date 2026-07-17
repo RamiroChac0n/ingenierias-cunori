@@ -79,17 +79,13 @@ export type NuevoIngreso = {
   _rev: string;
   titulo: string;
   subtitulo: string;
-  pasosAdmision: Array<
-    {
-      _key: string;
-    } & PasoAdmision
-  >;
+  pasosAdmision: Array<{
+    _key: string;
+  } & PasoAdmision>;
   requisitos: Array<string>;
-  fechasImportantes?: Array<
-    {
-      _key: string;
-    } & FechaImportante
-  >;
+  fechasImportantes?: Array<{
+    _key: string;
+  } & FechaImportante>;
   whatsapp?: string;
 };
 
@@ -197,16 +193,12 @@ export type HomePage = {
   };
   mision: string;
   vision: string;
-  egresados?: Array<
-    {
-      _key: string;
-    } & Egresado
-  >;
-  videosDestacados?: Array<
-    {
-      _key: string;
-    } & VideoDestacado
-  >;
+  egresados?: Array<{
+    _key: string;
+  } & Egresado>;
+  videosDestacados?: Array<{
+    _key: string;
+  } & VideoDestacado>;
   youtubeChannelUrl?: string;
 };
 
@@ -364,31 +356,7 @@ export type Geopoint = {
   alt?: number;
 };
 
-export type AllSanitySchemaTypes =
-  | SanityImageAssetReference
-  | Evento
-  | SanityImageCrop
-  | SanityImageHotspot
-  | Slug
-  | NuevoIngreso
-  | Revista
-  | SanityFileAssetReference
-  | Noticia
-  | Carrera
-  | HomePage
-  | SiteSettings
-  | FechaImportante
-  | PasoAdmision
-  | VideoDestacado
-  | Egresado
-  | SanityImagePaletteSwatch
-  | SanityImagePalette
-  | SanityImageDimensions
-  | SanityImageMetadata
-  | SanityFileAsset
-  | SanityAssetSourceData
-  | SanityImageAsset
-  | Geopoint;
+export type AllSanitySchemaTypes = SanityImageAssetReference | Evento | SanityImageCrop | SanityImageHotspot | Slug | NuevoIngreso | Revista | SanityFileAssetReference | Noticia | Carrera | HomePage | SiteSettings | FechaImportante | PasoAdmision | VideoDestacado | Egresado | SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | SanityImageMetadata | SanityFileAsset | SanityAssetSourceData | SanityImageAsset | Geopoint;
 
 // Source: ../src/lib/sanity/queries/carreras.ts
 // Variable: CARRERAS_LIST_QUERY
@@ -493,16 +461,12 @@ export type HOME_PAGE_QUERY_RESULT = {
   };
   mision: string;
   vision: string;
-  egresados?: Array<
-    {
-      _key: string;
-    } & Egresado
-  >;
-  videosDestacados?: Array<
-    {
-      _key: string;
-    } & VideoDestacado
-  >;
+  egresados?: Array<{
+    _key: string;
+  } & Egresado>;
+  videosDestacados?: Array<{
+    _key: string;
+  } & VideoDestacado>;
   youtubeChannelUrl?: string;
 } | null;
 
@@ -585,17 +549,13 @@ export type NUEVO_INGRESO_QUERY_RESULT = {
   _rev: string;
   titulo: string;
   subtitulo: string;
-  pasosAdmision: Array<
-    {
-      _key: string;
-    } & PasoAdmision
-  >;
+  pasosAdmision: Array<{
+    _key: string;
+  } & PasoAdmision>;
   requisitos: Array<string>;
-  fechasImportantes?: Array<
-    {
-      _key: string;
-    } & FechaImportante
-  >;
+  fechasImportantes?: Array<{
+    _key: string;
+  } & FechaImportante>;
   whatsapp?: string;
 } | null;
 
@@ -626,32 +586,27 @@ export type REVISTA_QUERY_RESULT = {
 // Source: ../src/lib/sanity/queries/search.ts
 // Variable: SEARCH_QUERY
 // Query: *[    (_type == "noticia" && defined(slug.current) && titulo match $q) ||    (_type == "carrera" && defined(slug.current) && nombre match $q) ||    (_type == "evento" && defined(slug.current) && tituloEvento match $q) ||    (_type == "revista" && nombreRevista match $q)  ] | order(_type asc) {    _type,    _id,    "title": coalesce(titulo, nombre, tituloEvento, nombreRevista),    "href": select(      _type == "noticia" => "/noticias/" + slug.current,      _type == "carrera" => "/pensum/" + slug.current,      _type == "evento" => "/galeria/" + slug.current,      _type == "revista" => "/revista"    )  }
-export type SEARCH_QUERY_RESULT = Array<
-  | {
-      _type: "carrera";
-      _id: string;
-      title: string;
-      href: string;
-    }
-  | {
-      _type: "evento";
-      _id: string;
-      title: string;
-      href: string;
-    }
-  | {
-      _type: "noticia";
-      _id: string;
-      title: string;
-      href: string;
-    }
-  | {
-      _type: "revista";
-      _id: string;
-      title: string;
-      href: "/revista";
-    }
->;
+export type SEARCH_QUERY_RESULT = Array<{
+  _type: "carrera";
+  _id: string;
+  title: string;
+  href: string;
+} | {
+  _type: "evento";
+  _id: string;
+  title: string;
+  href: string;
+} | {
+  _type: "noticia";
+  _id: string;
+  title: string;
+  href: string;
+} | {
+  _type: "revista";
+  _id: string;
+  title: string;
+  href: "/revista";
+}>;
 
 // Source: ../src/lib/sanity/queries/siteSettings.ts
 // Variable: SITE_SETTINGS_QUERY
@@ -682,26 +637,3 @@ export type SITE_SETTINGS_QUERY_RESULT = {
   instagramUrl?: string;
 } | null;
 
-// Query TypeMap
-import "@sanity/client";
-declare module "@sanity/client" {
-  interface SanityQueries {
-    '\n  *[_type == "carrera"] | order(lower(nombre) asc) {\n    nombre,\n    "slug": slug.current,\n    descripcionCorta\n  }\n': CARRERAS_LIST_QUERY_RESULT;
-    '\n  *[_type == "carrera" && defined(slug.current)] {\n    "slug": slug.current\n  }\n': CARRERA_SLUGS_QUERY_RESULT;
-    '\n  *[_type == "carrera" && slug.current == $slug][0] {\n    nombre,\n    "slug": slug.current,\n    descripcionCorta,\n    semestres,\n    creditos,\n    sistemaCreditos,\n    areasAcademicas,\n    pensumImages,\n    "pensumPdfUrl": pensumPdf.asset->url,\n    updateNote,\n    lastUpdated\n  }\n': CARRERA_BY_SLUG_QUERY_RESULT;
-    '\n  *[_type == "evento" && defined(slug.current)] | order(fechaEvento desc) {\n    tituloEvento,\n    "slug": slug.current,\n    fechaEvento,\n    imagenPortada\n  }\n': EVENTOS_LIST_QUERY_RESULT;
-    '\n  *[_type == "evento" && defined(slug.current)] {\n    "slug": slug.current\n  }\n': EVENTO_SLUGS_QUERY_RESULT;
-    '\n  *[_type == "evento" && slug.current == $slug][0] {\n    tituloEvento,\n    "slug": slug.current,\n    fechaEvento,\n    descripcion,\n    fotosAlbum\n  }\n': EVENTO_BY_SLUG_QUERY_RESULT;
-    '*[_id == "homePage" && _type == "homePage"][0]': HOME_PAGE_QUERY_RESULT;
-    '\n  *[_type == "noticia" && defined(slug.current)] | order(fechaPublicacion desc) [$start...$end] {\n    titulo,\n    "slug": slug.current,\n    fechaPublicacion,\n    autor,\n    tipoPost,\n    imagenDestacada\n  }\n': NOTICIAS_LIST_QUERY_RESULT;
-    '\n  count(*[_type == "noticia" && defined(slug.current)])\n': NOTICIAS_COUNT_QUERY_RESULT;
-    '\n  *[_type == "noticia" && defined(slug.current)] {\n    "slug": slug.current\n  }\n': NOTICIA_SLUGS_QUERY_RESULT;
-    '\n  *[_type == "noticia" && slug.current == $slug][0] {\n    titulo,\n    "slug": slug.current,\n    fechaPublicacion,\n    autor,\n    tipoPost,\n    imagenDestacada,\n    "documentoPdfUrl": documentoPdf.asset->url,\n    "documentoPdfName": documentoPdf.asset->originalFilename,\n    urlExterna,\n    fuenteEnlace\n  }\n': NOTICIA_BY_SLUG_QUERY_RESULT;
-    '\n  *[_type == "noticia" && defined(slug.current) && fechaPublicacion < $fecha] | order(fechaPublicacion desc) [0] {\n    titulo,\n    "slug": slug.current\n  }\n': NOTICIA_PREV_QUERY_RESULT;
-    '\n  *[_type == "noticia" && defined(slug.current) && fechaPublicacion > $fecha] | order(fechaPublicacion asc) [0] {\n    titulo,\n    "slug": slug.current\n  }\n': NOTICIA_NEXT_QUERY_RESULT;
-    '*[_id == "nuevoIngreso" && _type == "nuevoIngreso"][0]': NUEVO_INGRESO_QUERY_RESULT;
-    '*[_id == "revista" && _type == "revista"][0]': REVISTA_QUERY_RESULT;
-    '\n  *[\n    (_type == "noticia" && defined(slug.current) && titulo match $q) ||\n    (_type == "carrera" && defined(slug.current) && nombre match $q) ||\n    (_type == "evento" && defined(slug.current) && tituloEvento match $q) ||\n    (_type == "revista" && nombreRevista match $q)\n  ] | order(_type asc) {\n    _type,\n    _id,\n    "title": coalesce(titulo, nombre, tituloEvento, nombreRevista),\n    "href": select(\n      _type == "noticia" => "/noticias/" + slug.current,\n      _type == "carrera" => "/pensum/" + slug.current,\n      _type == "evento" => "/galeria/" + slug.current,\n      _type == "revista" => "/revista"\n    )\n  }\n': SEARCH_QUERY_RESULT;
-    '*[_id == "siteSettings" && _type == "siteSettings"][0]': SITE_SETTINGS_QUERY_RESULT;
-  }
-}
