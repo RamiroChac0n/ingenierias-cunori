@@ -1,15 +1,22 @@
 import { formatDate } from "@/lib/utils/formatDate";
+import { getCarreraPalette } from "@/lib/theme/carreraPalette";
 
 type UpdateNoteCalloutProps = {
+  slug: string;
   updateNote: string | null;
   lastUpdated: string;
 };
 
-export function UpdateNoteCallout({ updateNote, lastUpdated }: UpdateNoteCalloutProps) {
+export function UpdateNoteCallout({ slug, updateNote, lastUpdated }: UpdateNoteCalloutProps) {
   if (!updateNote) return null;
 
+  const palette = getCarreraPalette(slug);
+
   return (
-    <div className="flex gap-3 rounded-lg border border-black/10 bg-black/[0.03] p-5">
+    <div
+      className="flex gap-3 rounded-lg border-l-4 bg-white/70 p-5"
+      style={{ borderLeftColor: palette.accent }}
+    >
       <span aria-hidden="true" className="text-xl">
         ℹ️
       </span>
