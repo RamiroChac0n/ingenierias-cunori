@@ -27,7 +27,7 @@ export function Navbar({ siteName = "Facultad de Ingeniería CUNORI", logoUrl }:
   const [menuOpen, setMenuOpen] = useState(false);
 
   return (
-    <header className="sticky top-0 z-40 border-b border-black/10 bg-white/95 backdrop-blur">
+    <header className="sticky top-0 z-40 border-b border-white/10 bg-brand/95 text-white backdrop-blur">
       <div className="mx-auto flex max-w-7xl items-center justify-between gap-6 px-4 py-3 sm:px-8">
         <Link href="/" className="flex shrink-0 items-center gap-3 font-semibold leading-tight">
           {logoUrl ? (
@@ -36,12 +36,12 @@ export function Navbar({ siteName = "Facultad de Ingeniería CUNORI", logoUrl }:
               alt={siteName}
               width={44}
               height={44}
-              className="size-11 rounded-full object-contain"
+              className="size-11 rounded-full bg-white/10 object-contain"
             />
           ) : (
             <span
               aria-hidden="true"
-              className="flex size-11 items-center justify-center rounded-full bg-black/5 text-xs uppercase text-black/50"
+              className="flex size-11 items-center justify-center rounded-full bg-white/15 text-xs uppercase text-white/70"
             >
               logo
             </span>
@@ -51,7 +51,7 @@ export function Navbar({ siteName = "Facultad de Ingeniería CUNORI", logoUrl }:
 
         <nav aria-label="Principal" className="hidden items-center gap-6 text-sm md:flex">
           {NAV_LINKS.map((link) => (
-            <Link key={link.href} href={link.href} className="hover:opacity-70">
+            <Link key={link.href} href={link.href} className="hover:text-brand-gold">
               {link.label}
             </Link>
           ))}
@@ -74,14 +74,14 @@ export function Navbar({ siteName = "Facultad de Ingeniería CUNORI", logoUrl }:
       </div>
 
       {menuOpen && (
-        <div id="mobile-menu" className="border-t border-black/10 px-4 pb-4 md:hidden">
+        <div id="mobile-menu" className="border-t border-white/10 px-4 pb-4 md:hidden">
           <nav aria-label="Principal (móvil)" className="flex flex-col gap-3 py-4 text-sm">
             {NAV_LINKS.map((link) => (
               <Link
                 key={link.href}
                 href={link.href}
                 onClick={() => setMenuOpen(false)}
-                className="hover:opacity-70"
+                className="hover:text-brand-gold"
               >
                 {link.label}
               </Link>

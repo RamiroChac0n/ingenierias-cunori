@@ -3,11 +3,25 @@
 :root {
   --background: #ffffff;
   --foreground: #171717;
+
+  /* Identidad de marca — Centro Educativo (CUNORI), ver docs/paletas/logo-centro-educativo.css.
+     Solo para el "chrome" general del sitio (navbar, footer, CTAs de página).
+     Las páginas de pénsum usan su propia paleta por carrera (src/lib/theme/carreraPalette.ts). */
+  --brand: #4459f8; /* full-spectrum-blue — navbar, botones primarios, enlaces */
+  --brand-deep: #4f4dcc; /* violet-twilight — footer, superficies oscuras */
+  --brand-vivid: #0e25fd; /* blue — hover/estados activos */
+  --brand-soft: #7095e5; /* cornflower-blue — tintes claros, con texto oscuro encima */
+  --brand-gold: #f7dc09; /* bright-gold — acentos puntuales, foco */
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
+  --color-brand: var(--brand);
+  --color-brand-deep: var(--brand-deep);
+  --color-brand-vivid: var(--brand-vivid);
+  --color-brand-soft: var(--brand-soft);
+  --color-brand-gold: var(--brand-gold);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 }
