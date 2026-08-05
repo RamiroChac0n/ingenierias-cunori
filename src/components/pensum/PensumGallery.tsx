@@ -1,14 +1,18 @@
 import Image from "next/image";
 import { urlFor } from "@/lib/sanity/image";
 import type { CARRERA_BY_SLUG_QUERY_RESULT } from "@/sanity.types";
+import { getCarreraPalette } from "@/lib/theme/carreraPalette";
 
 type PensumGalleryProps = {
+  slug: string;
   images: NonNullable<CARRERA_BY_SLUG_QUERY_RESULT>["pensumImages"];
   pdfUrl: string | null;
 };
 
-export function PensumGallery({ images, pdfUrl }: PensumGalleryProps) {
+export function PensumGallery({ slug, images, pdfUrl }: PensumGalleryProps) {
   if (images.length === 0) return null;
+
+  const palette = getCarreraPalette(slug);
 
   return (
     <div className="py-8">
@@ -36,7 +40,8 @@ export function PensumGallery({ images, pdfUrl }: PensumGalleryProps) {
           href={pdfUrl}
           target="_blank"
           rel="noopener noreferrer"
-          className="mt-6 inline-block rounded-full bg-black px-6 py-2.5 text-sm font-medium text-white hover:bg-black/80"
+          className="mt-6 inline-block rounded-full px-6 py-2.5 text-sm font-medium text-black transition-opacity hover:opacity-80"
+          style={{ backgroundColor: palette.accent }}
         >
           ⬇ Descargar PDF
         </a>

@@ -13,6 +13,7 @@ import { AreaChips } from "@/components/pensum/AreaChips";
 import { UpdateNoteCallout } from "@/components/pensum/UpdateNoteCallout";
 import { PensumGallery } from "@/components/pensum/PensumGallery";
 import { ContactBlock } from "@/components/contact/ContactBlock";
+import { getCarreraPalette } from "@/lib/theme/carreraPalette";
 
 const options = { next: { revalidate: 60 } };
 
@@ -45,20 +46,29 @@ export default async function PensumPage({ params }: PageProps) {
 
   if (!carrera) return notFound();
 
+  const palette = getCarreraPalette(carrera.slug);
+
   return (
     <>
-      <div className="mx-auto max-w-7xl px-4 sm:px-8">
-        <CareerTabs careers={careers} activeSlug={carrera.slug} />
-        <CareerHeader
-          nombre={carrera.nombre}
-          descripcionCorta={carrera.descripcionCorta}
-          semestres={carrera.semestres}
-          creditos={carrera.creditos}
-          sistemaCreditos={carrera.sistemaCreditos}
-        />
-        <AreaChips areas={carrera.areasAcademicas} />
-        <UpdateNoteCallout updateNote={carrera.updateNote} lastUpdated={carrera.lastUpdated} />
-        <PensumGallery images={carrera.pensumImages} pdfUrl={carrera.pensumPdfUrl} />
+      <div style={{ backgroundColor: palette.bg }}>
+        <div className="mx-auto max-w-7xl px-4 sm:px-8">
+          <CareerTabs careers={careers} activeSlug={carrera.slug} />
+          <CareerHeader
+            slug={carrera.slug}
+            nombre={carrera.nombre}
+            descripcionCorta={carrera.descripcionCorta}
+            semestres={carrera.semestres}
+            creditos={carrera.creditos}
+            sistemaCreditos={carrera.sistemaCreditos}
+          />
+          <AreaChips slug={carrera.slug} areas={carrera.areasAcademicas} />
+          <UpdateNoteCallout
+            slug={carrera.slug}
+            updateNote={carrera.updateNote}
+            lastUpdated={carrera.lastUpdated}
+          />
+          <PensumGallery slug={carrera.slug} images={carrera.pensumImages} pdfUrl={carrera.pensumPdfUrl} />
+        </div>
       </div>
       {siteSettings && (
         <ContactBlock siteSettings={siteSettings} title="Contacto" showMap={false} showWhatsapp={false} />
