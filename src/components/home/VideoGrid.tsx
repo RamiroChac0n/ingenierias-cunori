@@ -1,4 +1,6 @@
+import Image from "next/image";
 import type { HOME_PAGE_QUERY_RESULT } from "@/sanity.types";
+import { getYoutubeThumbnailUrl } from "@/lib/utils/youtube";
 
 type VideoGridProps = {
   videos: NonNullable<HOME_PAGE_QUERY_RESULT>["videosDestacados"];
@@ -13,27 +15,42 @@ export function VideoGrid({ videos, channelUrl }: VideoGridProps) {
       <div className="mx-auto max-w-7xl px-4 sm:px-8">
         <h2 className="text-2xl font-semibold">Nuestros Videos</h2>
         <div className="mt-8 grid grid-cols-2 gap-4 sm:grid-cols-4">
-          {videos.map((video) => (
-            <a
-              key={video._key}
-              href={video.youtubeUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="group relative flex aspect-video w-full items-center justify-center overflow-hidden rounded-lg bg-black text-white"
-            >
-              <span
-                aria-hidden="true"
-                className="flex size-12 items-center justify-center rounded-full bg-white/90 text-black transition-transform group-hover:scale-110"
+          {videos.map((video) => {
+            const thumbnailUrl = video.youtubeUrl
+              ? getYoutubeThumbnailUrl(video.youtubeUrl)
+              : null;
+
+            return (
+              <a
+                key={video._key}
+                href={video.youtubeUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group relative flex aspect-video w-full items-center justify-center overflow-hidden rounded-lg bg-black text-white"
               >
-                ▶
-              </span>
-              {video.titulo && (
-                <span className="absolute inset-x-0 bottom-0 truncate bg-black/60 px-2 py-1 text-xs">
-                  {video.titulo}
+                {thumbnailUrl && (
+                  <Image
+                    src={thumbnailUrl}
+                    alt={video.titulo ?? "Miniatura del video de YouTube"}
+                    fill
+                    sizes="(min-width: 640px) 25vw, 50vw"
+                    className="object-cover transition-transform group-hover:scale-105"
+                  />
+                )}
+                <span
+                  aria-hidden="true"
+                  className="relative flex size-12 items-center justify-center rounded-full bg-white/90 text-black transition-transform group-hover:scale-110"
+                >
+                  ▶
                 </span>
-              )}
-            </a>
-          ))}
+                {video.titulo && (
+                  <span className="absolute inset-x-0 bottom-0 truncate bg-black/60 px-2 py-1 text-xs">
+                    {video.titulo}
+                  </span>
+                )}
+              </a>
+            );
+          })}
         </div>
         {channelUrl && (
           <div className="mt-8">
