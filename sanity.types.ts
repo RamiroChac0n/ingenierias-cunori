@@ -265,6 +265,7 @@ export type Egresado = {
     crop?: SanityImageCrop;
     _type: "image";
   };
+  testimonio?: string;
 };
 
 export type SanityImagePaletteSwatch = {
