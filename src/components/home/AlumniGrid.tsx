@@ -28,6 +28,11 @@ export function AlumniGrid({ egresados }: AlumniGridProps) {
                 {egresado.nombre}
                 {egresado.carrera ? ` — ${egresado.carrera}` : ""}
               </p>
+              {egresado.testimonio && (
+                <p className="mt-1 line-clamp-4 text-sm text-black/60 italic">
+                  “{egresado.testimonio}”
+                </p>
+              )}
             </div>
           ))}
         </div>
