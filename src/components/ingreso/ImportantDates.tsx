@@ -15,7 +15,7 @@ export function ImportantDates({ fechas }: ImportantDatesProps) {
   return (
     <div className="grid gap-4 sm:grid-cols-3">
       {fechas.map((item) => (
-        <div key={item.nombre} className="rounded-lg border border-black/10 p-5 text-center">
+        <div key={item.nombre} className="rounded-2xl border border-black/5 bg-white p-5 text-center shadow-sm transition-shadow duration-300 hover:shadow-md">
           <p className="text-xl font-semibold">{formatDate(item.fecha, { day: "2-digit", month: "short" })}</p>
           <p className="mt-1 text-sm text-black/60">{item.nombre}</p>
         </div>

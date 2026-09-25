@@ -10,7 +10,7 @@ export function MapEmbed({ embedUrl }: MapEmbedProps) {
       src={embedUrl}
       loading="lazy"
       referrerPolicy="no-referrer-when-downgrade"
-      className="h-56 w-full rounded-lg border border-black/10 sm:h-full sm:min-h-[220px]"
+      className="h-56 w-full rounded-2xl border border-black/5 shadow-sm sm:h-full sm:min-h-[220px]"
       title="Ubicación en el mapa"
     />
   );

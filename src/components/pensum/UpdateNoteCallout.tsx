@@ -14,7 +14,7 @@ export function UpdateNoteCallout({ slug, updateNote, lastUpdated }: UpdateNoteC
 
   return (
     <div
-      className="flex gap-3 rounded-lg border-l-4 bg-white/70 p-5"
+      className="flex gap-3 rounded-r-xl border-l-4 bg-white p-5 shadow-sm"
       style={{ borderLeftColor: palette.accent }}
     >
       <span aria-hidden="true" className="text-xl">

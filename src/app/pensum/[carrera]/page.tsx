@@ -50,7 +50,7 @@ export default async function PensumPage({ params }: PageProps) {
 
   return (
     <>
-      <div style={{ backgroundColor: palette.bg }}>
+      <div style={{ background: `linear-gradient(180deg, ${palette.bg} 0%, #ffffff 480px)` }}>
         <div className="mx-auto max-w-7xl px-4 sm:px-8">
           <CareerTabs careers={careers} activeSlug={carrera.slug} />
           <CareerHeader

@@ -19,12 +19,12 @@ export function SearchResults({ results, query }: SearchResultsProps) {
   }
 
   return (
-    <ul className="mt-8 divide-y divide-black/10">
+    <ul className="mt-8 divide-y divide-black/5">
       {results.map((result) => (
-        <li key={result._id} className="py-4">
+        <li key={result._id} className="-mx-3 rounded-xl px-3 py-4 transition-colors hover:bg-black/[0.03]">
           <Link href={result.href} className="group flex items-center justify-between gap-4">
             <span>
-              <span className="mr-2 inline-block rounded bg-black/5 px-2 py-0.5 text-xs uppercase tracking-wide text-black/50">
+              <span className="mr-2 inline-block rounded-full bg-black/5 px-2.5 py-1 text-xs uppercase tracking-wide text-black/50">
                 {TYPE_LABEL[result._type] ?? result._type}
               </span>
               <span className="font-medium group-hover:underline">{result.title}</span>

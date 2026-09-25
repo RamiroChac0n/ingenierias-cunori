@@ -21,16 +21,16 @@ export function CareerHeader({
 
   return (
     <div className="py-8">
-      <h1 className="text-3xl font-semibold sm:text-4xl">{nombre}</h1>
+      <h1 className="text-3xl font-semibold tracking-tight sm:text-4xl">{nombre}</h1>
       <div className="mt-4 flex flex-wrap gap-3 text-sm">
-        <span className="rounded-full border px-4 py-1.5" style={{ borderColor: palette.accent }}>
+        <span className="rounded-full border px-4 py-1.5 shadow-sm" style={{ borderColor: palette.accent }}>
           {semestres} semestres
         </span>
-        <span className="rounded-full border px-4 py-1.5" style={{ borderColor: palette.accent }}>
+        <span className="rounded-full border px-4 py-1.5 shadow-sm" style={{ borderColor: palette.accent }}>
           {creditos} créditos
         </span>
         <span
-          className="rounded-full px-4 py-1.5"
+          className="rounded-full px-4 py-1.5 font-medium shadow-sm"
           style={
             sistemaCreditos === "CLAR"
               ? { backgroundColor: palette.accent }

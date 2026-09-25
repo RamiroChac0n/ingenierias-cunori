@@ -13,7 +13,7 @@ export function VideoGrid({ videos, channelUrl }: VideoGridProps) {
   return (
     <section className="py-16">
       <div className="mx-auto max-w-7xl px-4 sm:px-8">
-        <h2 className="text-2xl font-semibold">Nuestros Videos</h2>
+        <h2 className="text-2xl font-semibold tracking-tight">Nuestros Videos</h2>
         <div className="mt-8 grid grid-cols-2 gap-4 sm:grid-cols-4">
           {videos.map((video) => {
             const thumbnailUrl = video.youtubeUrl
@@ -26,7 +26,7 @@ export function VideoGrid({ videos, channelUrl }: VideoGridProps) {
                 href={video.youtubeUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group relative flex aspect-video w-full items-center justify-center overflow-hidden rounded-lg bg-black text-white"
+                className="group relative flex aspect-video w-full items-center justify-center overflow-hidden rounded-2xl bg-black text-white shadow-sm ring-1 ring-black/10 transition-shadow duration-300 hover:shadow-xl hover:shadow-black/20"
               >
                 {thumbnailUrl && (
                   <Image
@@ -39,7 +39,7 @@ export function VideoGrid({ videos, channelUrl }: VideoGridProps) {
                 )}
                 <span
                   aria-hidden="true"
-                  className="relative flex size-12 items-center justify-center rounded-full bg-white/90 text-black transition-transform group-hover:scale-110"
+                  className="relative flex size-12 items-center justify-center rounded-full bg-white/90 text-black shadow-lg transition-transform duration-300 group-hover:scale-110"
                 >
                   ▶
                 </span>
@@ -58,7 +58,7 @@ export function VideoGrid({ videos, channelUrl }: VideoGridProps) {
               href={channelUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-block rounded-full border border-black px-6 py-2.5 text-sm font-medium hover:bg-black/5"
+              className="inline-flex items-center gap-2 rounded-full border border-black/80 px-6 py-2.5 text-sm font-medium transition-all duration-200 hover:-translate-y-0.5 hover:bg-black hover:text-white"
             >
               Ver más en YouTube →
             </a>

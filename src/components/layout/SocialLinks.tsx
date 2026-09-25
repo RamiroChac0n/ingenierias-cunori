@@ -54,7 +54,7 @@ export function SocialLinks({
           target="_blank"
           rel="noopener noreferrer"
           aria-label={link.label}
-          className="text-current opacity-80 transition-opacity hover:opacity-100"
+          className="text-current opacity-80 transition-all duration-200 hover:scale-110 hover:opacity-100"
         >
           {link.icon}
         </a>

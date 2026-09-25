@@ -32,10 +32,10 @@ export default async function EventoPage({ params }: PageProps) {
 
   return (
     <div className="mx-auto max-w-7xl px-4 py-16 sm:px-8">
-      <Link href="/galeria" className="text-sm hover:underline">
+      <Link href="/galeria" className="text-sm text-black/60 transition-colors hover:text-black hover:underline">
         ← Volver a Galería
       </Link>
-      <h1 className="mt-6 text-3xl font-semibold sm:text-4xl">{evento.tituloEvento}</h1>
+      <h1 className="mt-6 text-3xl font-semibold tracking-tight sm:text-4xl">{evento.tituloEvento}</h1>
       <p className="mt-2 text-sm text-black/50">{formatDate(evento.fechaEvento)}</p>
       {evento.descripcion && <p className="mt-4 max-w-3xl text-black/70">{evento.descripcion}</p>}
       <div className="mt-10">

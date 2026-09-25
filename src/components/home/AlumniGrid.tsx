@@ -12,16 +12,16 @@ export function AlumniGrid({ egresados }: AlumniGridProps) {
   return (
     <section className="py-16">
       <div className="mx-auto max-w-7xl px-4 sm:px-8">
-        <h2 className="text-2xl font-semibold">Nuestros Egresados</h2>
+        <h2 className="text-2xl font-semibold tracking-tight">Nuestros Egresados</h2>
         <div className="mt-8 grid grid-cols-2 gap-6 sm:grid-cols-3">
           {egresados.map((egresado) => (
-            <div key={egresado._key}>
-              <div className="relative aspect-square overflow-hidden rounded-lg bg-black/5">
+            <div key={egresado._key} className="group">
+              <div className="relative aspect-square overflow-hidden rounded-2xl bg-black/5 shadow-sm ring-1 ring-black/5">
                 <Image
                   src={urlFor(egresado.foto).width(400).height(400).fit("crop").url()}
                   alt={egresado.nombre}
                   fill
-                  className="object-cover"
+                  className="object-cover transition-transform duration-500 group-hover:scale-110"
                 />
               </div>
               <p className="mt-2 text-sm">
@@ -29,7 +29,7 @@ export function AlumniGrid({ egresados }: AlumniGridProps) {
                 {egresado.carrera ? ` — ${egresado.carrera}` : ""}
               </p>
               {egresado.testimonio && (
-                <p className="mt-1 line-clamp-4 text-sm text-black/60 italic">
+                <p className="mt-1 line-clamp-4 text-sm leading-relaxed text-black/60 italic">
                   “{egresado.testimonio}”
                 </p>
               )}

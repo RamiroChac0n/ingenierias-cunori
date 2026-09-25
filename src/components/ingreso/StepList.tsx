@@ -12,7 +12,7 @@ export function StepList({ steps }: StepListProps) {
     <ol className="grid gap-8 sm:grid-cols-2 lg:grid-cols-5">
       {steps.map((step, index) => (
         <li key={step.titulo} className="flex flex-col items-center gap-3 text-center sm:items-start sm:text-left">
-          <span className="flex size-11 shrink-0 items-center justify-center rounded-full border border-black font-medium">
+          <span className="flex size-11 shrink-0 items-center justify-center rounded-full bg-black font-medium text-white shadow-md shadow-black/20">
             {index + 1}
           </span>
           <div>

@@ -30,14 +30,14 @@ export function Lightbox({ fotos, index, onClose, onIndexChange }: LightboxProps
       role="dialog"
       aria-modal="true"
       aria-label="Foto ampliada"
-      className="fixed inset-0 z-50 flex items-center justify-center bg-black/90 p-4"
+      className="fixed inset-0 z-50 flex items-center justify-center bg-black/90 p-4 backdrop-blur-sm"
       onClick={onClose}
     >
       <button
         type="button"
         onClick={onClose}
         aria-label="Cerrar"
-        className="absolute right-4 top-4 flex size-10 items-center justify-center rounded-full bg-white text-black"
+        className="absolute right-4 top-4 flex size-10 items-center justify-center rounded-full bg-white text-black shadow-lg transition-transform duration-200 hover:scale-105"
       >
         ✕
       </button>
@@ -51,7 +51,7 @@ export function Lightbox({ fotos, index, onClose, onIndexChange }: LightboxProps
               onIndexChange((index - 1 + fotos.length) % fotos.length);
             }}
             aria-label="Foto anterior"
-            className="absolute left-4 top-1/2 -translate-y-1/2 text-3xl text-white"
+            className="absolute left-4 top-1/2 flex size-12 -translate-y-1/2 items-center justify-center rounded-full text-3xl text-white transition-colors hover:bg-white/10"
           >
             ‹
           </button>
@@ -62,7 +62,7 @@ export function Lightbox({ fotos, index, onClose, onIndexChange }: LightboxProps
               onIndexChange((index + 1) % fotos.length);
             }}
             aria-label="Foto siguiente"
-            className="absolute right-4 top-1/2 -translate-y-1/2 text-3xl text-white"
+            className="absolute right-4 top-1/2 flex size-12 -translate-y-1/2 items-center justify-center rounded-full text-3xl text-white transition-colors hover:bg-white/10"
           >
             ›
           </button>

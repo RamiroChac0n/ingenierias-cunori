@@ -28,7 +28,7 @@ export default async function RevistaPage() {
   return (
     <>
       <div className="mx-auto max-w-7xl px-4 py-16 sm:px-8">
-        <h1 className="text-3xl font-semibold sm:text-4xl">{revista.nombreRevista}</h1>
+        <h1 className="text-3xl font-semibold tracking-tight sm:text-4xl">{revista.nombreRevista}</h1>
         <p className="mt-3 max-w-2xl text-black/70">{revista.descripcion}</p>
 
         <div className="mt-10">
@@ -48,7 +48,7 @@ export default async function RevistaPage() {
               href={revista.linkListadoEdicionesAnteriores}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-block rounded-full border border-black px-6 py-2.5 text-sm font-medium hover:bg-black/5"
+              className="inline-flex items-center gap-2 rounded-full border border-black/80 px-6 py-2.5 text-sm font-medium transition-all duration-200 hover:-translate-y-0.5 hover:bg-black hover:text-white"
             >
               Ver todas las ediciones ↗
             </a>

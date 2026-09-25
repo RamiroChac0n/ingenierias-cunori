@@ -8,7 +8,7 @@ export function SearchBox({ className }: SearchBoxProps) {
       action="/buscar"
       method="get"
       role="search"
-      className={`flex items-center gap-2 rounded-full border border-current/20 px-4 py-2 text-sm ${className ?? ""}`}
+      className={`flex items-center gap-2 rounded-full border border-current/20 bg-current/[0.02] px-4 py-2 text-sm transition-colors focus-within:border-current/40 ${className ?? ""}`}
     >
       <svg
         viewBox="0 0 24 24"

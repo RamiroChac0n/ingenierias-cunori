@@ -11,7 +11,7 @@ export function PostNavigation({ prev, next }: PostNavigationProps) {
   if (!prev && !next) return null;
 
   return (
-    <div className="flex items-center justify-between gap-6 border-t border-black/10 py-6 text-sm">
+    <div className="flex items-center justify-between gap-6 border-t border-black/5 py-6 text-sm">
       {prev ? (
         <Link href={`/noticias/${prev.slug}`} className="hover:underline">
           ← {prev.titulo}
