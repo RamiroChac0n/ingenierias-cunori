@@ -1,8 +1,56 @@
 @import "tailwindcss";
 
+/*
+ * Paleta del sitio — basada en los colores por carrera (carreraPalette.ts):
+ *   coral  #EC824E (Ciencias y Sistemas) · rosa #F4869E (Civil) · salvia #7EB071 (Industrial)
+ * "Tinta" es un azul índigo profundo que reemplaza al negro puro en todo el sitio.
+ */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --ink: #1b1f3b;
+  --ink-soft: #3a3f6b;
+  --brand-coral: #ec824e;
+  --brand-rose: #f4869e;
+  --brand-sage: #7eb071;
+  --brand-gradient: linear-gradient(90deg, var(--brand-coral), var(--brand-rose) 50%, var(--brand-sage));
+  --ink-gradient: linear-gradient(135deg, #1b1f3b 0%, #353a7a 100%);
+
+  --background: #fbf8f5;
+  --foreground: var(--ink);
+  --shadow-soft: 0 1px 2px rgb(27 31 59 / 0.04), 0 1px 3px rgb(27 31 59 / 0.06);
+  --shadow-card: 0 4px 6px rgb(27 31 59 / 0.04), 0 10px 20px -6px rgb(27 31 59 / 0.1);
+}
+
+/*
+ * Tailwind: "black" pasa a ser la tinta índigo, así todas las clases existentes
+ * (bg-black, text-black/60, border-black/5, shadow-black/10…) toman el nuevo tono
+ * sin tocar los componentes. Las sombras quedan más suaves y teñidas.
+ */
+@theme {
+  --color-black: #1b1f3b;
+
+  --shadow-sm: 0 1px 2px 0 rgb(27 31 59 / 0.04), 0 2px 8px -2px rgb(27 31 59 / 0.08);
+  --shadow-md: 0 4px 10px -2px rgb(27 31 59 / 0.08), 0 2px 4px -2px rgb(27 31 59 / 0.05);
+  --shadow-lg: 0 12px 24px -6px rgb(27 31 59 / 0.12), 0 4px 8px -4px rgb(27 31 59 / 0.06);
+  --shadow-xl: 0 20px 40px -12px rgb(27 31 59 / 0.18), 0 8px 16px -8px rgb(27 31 59 / 0.08);
+  --shadow-2xl: 0 32px 64px -16px rgb(27 31 59 / 0.3);
+
+  /* Escala tipográfica más grande y legible (solo texto; los espacios no cambian) */
+  --text-xs: 0.8125rem; /* 13px (antes 12px) */
+  --text-xs--line-height: 1.5;
+  --text-sm: 0.9375rem; /* 15px (antes 14px) */
+  --text-sm--line-height: 1.6;
+  --text-base: 1.0625rem; /* 17px (antes 16px) */
+  --text-base--line-height: 1.7;
+  --text-lg: 1.25rem; /* 20px (antes 18px) */
+  --text-lg--line-height: 1.55;
+  --text-xl: 1.375rem; /* 22px (antes 20px) */
+  --text-xl--line-height: 1.5;
+  --text-2xl: 1.875rem; /* 30px (antes 24px) */
+  --text-2xl--line-height: 1.25;
+  --text-3xl: 2.25rem; /* 36px (antes 30px) */
+  --text-3xl--line-height: 1.2;
+  --text-4xl: 3rem; /* 48px (antes 36px) */
+  --text-4xl--line-height: 1.1;
 }
 
 @theme inline {
@@ -12,9 +60,131 @@
   --font-mono: var(--font-geist-mono);
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 body {
-  background: var(--background);
+  background-color: var(--background);
+  /* Destellos suaves de la paleta en el fondo */
+  background-image:
+    radial-gradient(60rem 30rem at 0% 0%, rgb(236 130 78 / 0.07), transparent 60%),
+    radial-gradient(50rem 30rem at 100% 10%, rgb(126 176 113 / 0.07), transparent 60%),
+    radial-gradient(50rem 40rem at 50% 100%, rgb(244 134 158 / 0.06), transparent 60%);
   color: var(--foreground);
   color-scheme: light;
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-sans), Arial, Helvetica, sans-serif;
+  /* Texto sin clase de tamaño (párrafos, testimonios…) */
+  font-size: 1.0625rem;
+  line-height: 1.7;
+}
+
+::selection {
+  background: rgb(236 130 78 / 0.25);
+  color: var(--ink);
+}
+
+img {
+  color-scheme: light;
+}
+
+/* Foco accesible con el color de acento */
+:focus-visible {
+  outline: 2px solid var(--brand-coral);
+  outline-offset: 3px;
+  border-radius: 6px;
+}
+
+/* Barra de desplazamiento discreta */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: rgb(27 31 59 / 0.25) transparent;
+}
+
+/* ---------- Navegación y pie ---------- */
+
+/* Línea de acento con el degradado de las tres carreras */
+header.sticky {
+  border-bottom-color: transparent;
+  box-shadow: 0 1px 0 rgb(27 31 59 / 0.04), 0 8px 24px -16px rgb(27 31 59 / 0.2);
+}
+
+/* Evita que los enlaces del menú se partan en dos renglones */
+header.sticky nav a {
+  white-space: nowrap;
+}
+
+header.sticky::after {
+  content: "";
+  position: absolute;
+  inset: auto 0 0 0;
+  height: 2px;
+  background: var(--brand-gradient);
+  opacity: 0.85;
+}
+
+footer {
+  position: relative;
+  background-color: #f4efea;
+}
+
+footer::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 3px;
+  background: var(--brand-gradient);
+}
+
+/* ---------- Botones y etiquetas ---------- */
+
+/* Botón principal: degradado índigo con brillo coral */
+a.bg-black.rounded-full.text-white,
+button.bg-black.rounded-full.text-white {
+  background-image: var(--ink-gradient);
+  box-shadow: 0 8px 20px -8px rgb(236 130 78 / 0.55), 0 2px 6px -2px rgb(27 31 59 / 0.3);
+}
+
+a.bg-black.rounded-full.text-white:hover,
+button.bg-black.rounded-full.text-white:hover {
+  box-shadow: 0 14px 28px -10px rgb(236 130 78 / 0.7), 0 4px 10px -4px rgb(27 31 59 / 0.35);
+}
+
+/* Botón secundario (contorno): al pasar el mouse toma el degradado */
+a.rounded-full.border-black\/80:hover,
+button.rounded-full.border-black\/80:hover {
+  background-image: var(--ink-gradient);
+  border-color: transparent;
+}
+
+/* Etiquetas pequeñas (p. ej. tipo de noticia) en tono coral suave */
+span.bg-black.rounded-full.text-white {
+  background-color: #fde5d8;
+  background-image: none;
+  color: #a2461b;
+  box-shadow: inset 0 0 0 1px rgb(236 130 78 / 0.25);
+}
+
+/* Números de pasos (proceso de admisión) con el degradado de marca */
+.bg-black.rounded-full.text-white.size-11 {
+  background-image: linear-gradient(135deg, var(--brand-coral), var(--brand-rose));
+  box-shadow: 0 8px 18px -8px rgb(236 130 78 / 0.7);
+}
+
+/* ---------- Tarjetas ---------- */
+
+/* Borde un poco más cálido y brillo interno sutil en tarjetas blancas */
+.rounded-2xl.bg-white,
+.rounded-xl.bg-white {
+  border-color: rgb(27 31 59 / 0.06);
+  box-shadow:
+    inset 0 1px 0 rgb(255 255 255 / 0.8),
+    var(--tw-shadow, 0 0 #0000);
+}
+
+/* Tarjeta del hero con efecto vidrio */
+.bg-white\/95.rounded-2xl {
+  background-color: rgb(255 255 255 / 0.88);
+  box-shadow: 0 30px 60px -20px rgb(27 31 59 / 0.45), inset 0 1px 0 rgb(255 255 255 / 0.9);
+  border: 1px solid rgb(255 255 255 / 0.6);
 }

@@ -19,7 +19,7 @@ export default async function BuscarPage({ searchParams }: PageProps) {
 
   return (
     <div className="mx-auto max-w-3xl px-4 py-16 sm:px-8">
-      <h1 className="text-3xl font-semibold">Buscar</h1>
+      <h1 className="text-3xl font-semibold tracking-tight">Buscar</h1>
       {query ? (
         <>
           <p className="mt-2 text-black/60">Resultados para “{query}”</p>

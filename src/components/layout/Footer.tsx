@@ -27,7 +27,7 @@ export function Footer({
   instagramUrl,
 }: FooterProps) {
   return (
-    <footer className="mt-auto border-t border-black/10 bg-black/[0.03]">
+    <footer className="mt-auto border-t border-black/5 bg-gradient-to-b from-black/[0.02] to-black/[0.05]">
       <div className="mx-auto flex max-w-7xl flex-col items-center gap-6 px-4 py-10 sm:flex-row sm:items-start sm:justify-between sm:px-8">
         <div className="text-center sm:text-left">
           <div className="flex items-center justify-center gap-3 sm:justify-start">
@@ -37,14 +37,14 @@ export function Footer({
                 alt={siteName}
                 width={32}
                 height={32}
-                className="size-8 rounded-full object-contain"
+                className="size-8 rounded-full object-contain ring-1 ring-black/5"
               />
             )}
             <p className="font-semibold">{siteName}</p>
           </div>
           <nav aria-label="Enlaces del pie de página" className="mt-3 flex flex-wrap justify-center gap-x-6 gap-y-2 text-sm sm:justify-start">
             {QUICK_LINKS.map((link) => (
-              <Link key={link.href} href={link.href} className="hover:opacity-70">
+              <Link key={link.href} href={link.href} className="transition-opacity duration-200 hover:opacity-60">
                 {link.label}
               </Link>
             ))}
@@ -59,7 +59,7 @@ export function Footer({
         />
       </div>
 
-      <p className="border-t border-black/10 py-4 text-center text-xs text-black/60">
+      <p className="border-t border-black/5 py-4 text-center text-xs text-black/50">
         © {new Date().getFullYear()} {siteName}
       </p>
     </footer>

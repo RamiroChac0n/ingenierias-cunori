@@ -33,7 +33,7 @@ export function NoticiasList({ initialItems, total }: NoticiasListProps) {
                 setItems((prev) => [...prev, ...more]);
               });
             }}
-            className="rounded-full border border-black px-6 py-2.5 text-sm font-medium hover:bg-black/5 disabled:opacity-50"
+            className="rounded-full border border-black/80 px-6 py-2.5 text-sm font-medium shadow-sm transition-all duration-200 hover:-translate-y-0.5 hover:bg-black hover:text-white hover:shadow-md disabled:pointer-events-none disabled:opacity-50 disabled:hover:translate-y-0"
           >
             {isPending ? "Cargando…" : "Cargar más"}
           </button>

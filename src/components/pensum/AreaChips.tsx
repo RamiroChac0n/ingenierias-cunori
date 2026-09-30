@@ -17,7 +17,7 @@ export function AreaChips({ slug, areas }: AreaChipsProps) {
         {areas.map((area) => (
           <span
             key={area}
-            className="rounded-full px-4 py-1.5 text-sm"
+            className="rounded-full px-4 py-1.5 text-sm font-medium shadow-sm transition-transform duration-200 hover:scale-105"
             style={{ backgroundColor: palette.accentSoft }}
           >
             {area}

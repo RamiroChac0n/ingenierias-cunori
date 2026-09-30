@@ -21,13 +21,13 @@ export function PhotoGrid({ fotos }: PhotoGridProps) {
             key={foto._key}
             type="button"
             onClick={() => setOpenIndex(index)}
-            className="relative aspect-square overflow-hidden rounded-lg bg-black/5"
+            className="relative aspect-square overflow-hidden rounded-xl bg-black/5 shadow-sm transition-shadow duration-300 hover:shadow-md"
           >
             <Image
               src={urlFor(foto).width(400).height(400).fit("crop").url()}
               alt=""
               fill
-              className="object-cover transition-transform hover:scale-105"
+              className="object-cover transition-transform duration-500 hover:scale-110"
             />
           </button>
         ))}

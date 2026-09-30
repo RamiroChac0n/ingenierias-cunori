@@ -33,13 +33,13 @@ export default async function NuevoIngresoPage() {
 
   return (
     <>
-      <div className="border-b border-black/10 py-16">
+      <div className="border-b border-black/5 bg-gradient-to-b from-black/[0.02] to-transparent py-16">
         <div className="mx-auto max-w-7xl px-4 sm:px-8">
-          <h1 className="text-3xl font-semibold sm:text-4xl">{nuevoIngreso.titulo}</h1>
+          <h1 className="text-3xl font-semibold tracking-tight sm:text-4xl">{nuevoIngreso.titulo}</h1>
           <p className="mt-3 max-w-xl text-black/70">{nuevoIngreso.subtitulo}</p>
           <Link
             href="/#contacto"
-            className="mt-6 inline-block rounded-full bg-black px-6 py-2.5 text-sm font-medium text-white hover:bg-black/80"
+            className="mt-6 inline-block rounded-full bg-black px-6 py-2.5 text-sm font-medium text-white shadow-md shadow-black/20 transition-all duration-200 hover:-translate-y-0.5 hover:bg-black/85 hover:shadow-lg hover:shadow-black/25"
           >
             Inscríbete ahora
           </Link>
@@ -47,14 +47,14 @@ export default async function NuevoIngresoPage() {
       </div>
 
       <div className="mx-auto max-w-7xl px-4 py-16 sm:px-8">
-        <h2 className="text-2xl font-semibold">Proceso de Admisión</h2>
+        <h2 className="text-2xl font-semibold tracking-tight">Proceso de Admisión</h2>
         <div className="mt-10">
           <StepList steps={nuevoIngreso.pasosAdmision} />
         </div>
       </div>
 
       <div className="mx-auto max-w-7xl px-4 pb-16 sm:px-8">
-        <h2 className="text-2xl font-semibold">Requisitos</h2>
+        <h2 className="text-2xl font-semibold tracking-tight">Requisitos</h2>
         <div className="mt-8">
           <RequirementsList requisitos={nuevoIngreso.requisitos} />
         </div>
@@ -64,7 +64,7 @@ export default async function NuevoIngresoPage() {
 
       {nuevoIngreso.fechasImportantes && nuevoIngreso.fechasImportantes.length > 0 && (
         <div className="mx-auto max-w-7xl px-4 pb-16 sm:px-8">
-          <h2 className="text-2xl font-semibold">Fechas Importantes</h2>
+          <h2 className="text-2xl font-semibold tracking-tight">Fechas Importantes</h2>
           <div className="mt-8">
             <ImportantDates fechas={nuevoIngreso.fechasImportantes} />
           </div>

@@ -23,14 +23,14 @@ export function PensumGallery({ slug, images, pdfUrl }: PensumGalleryProps) {
             href={urlFor(image).width(2000).url()}
             target="_blank"
             rel="noopener noreferrer"
-            className="block overflow-hidden rounded-lg border border-black/10"
+            className="group block overflow-hidden rounded-2xl border border-black/5 shadow-sm transition-shadow duration-300 hover:shadow-lg"
           >
             <Image
               src={urlFor(image).width(900).url()}
               alt="Página del pénsum"
               width={900}
               height={1200}
-              className="h-auto w-full object-contain"
+              className="h-auto w-full object-contain transition-transform duration-500 group-hover:scale-[1.02]"
             />
           </a>
         ))}
@@ -40,7 +40,7 @@ export function PensumGallery({ slug, images, pdfUrl }: PensumGalleryProps) {
           href={pdfUrl}
           target="_blank"
           rel="noopener noreferrer"
-          className="mt-6 inline-block rounded-full px-6 py-2.5 text-sm font-medium text-black transition-opacity hover:opacity-80"
+          className="mt-6 inline-block rounded-full px-6 py-2.5 text-sm font-medium text-black shadow-md transition-all duration-200 hover:-translate-y-0.5 hover:opacity-90 hover:shadow-lg"
           style={{ backgroundColor: palette.accent }}
         >
           ⬇ Descargar PDF

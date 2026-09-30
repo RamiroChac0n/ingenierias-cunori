@@ -23,6 +23,13 @@ export const egresado = defineType({
       options: {hotspot: true},
       validation: (Rule) => Rule.required(),
     }),
+    defineField({
+      name: 'testimonio',
+      title: 'Testimonio',
+      type: 'text',
+      rows: 3,
+      description: 'Opcional. Un párrafo corto contando su experiencia (1-3 frases).',
+    }),
   ],
   preview: {
     select: {title: 'nombre', subtitle: 'carrera', media: 'foto'},

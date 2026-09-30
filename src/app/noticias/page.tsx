@@ -17,7 +17,7 @@ export default async function NoticiasPage() {
 
   return (
     <div className="mx-auto max-w-7xl px-4 py-16 sm:px-8">
-      <h1 className="text-3xl font-semibold">Noticias</h1>
+      <h1 className="text-3xl font-semibold tracking-tight">Noticias</h1>
       {items.length === 0 ? (
         <p className="mt-8 text-black/60">Todavía no hay noticias publicadas.</p>
       ) : (
