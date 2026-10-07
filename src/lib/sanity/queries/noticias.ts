@@ -33,6 +33,11 @@ export const NOTICIA_BY_SLUG_QUERY = defineQuery(`
     imagenDestacada,
     "documentoPdfUrl": documentoPdf.asset->url,
     "documentoPdfName": documentoPdf.asset->originalFilename,
+    "documentosAdicionales": documentosAdicionales[] {
+      _key,
+      "url": asset->url,
+      "name": asset->originalFilename
+    },
     urlExterna,
     fuenteEnlace
   }

@@ -144,6 +144,12 @@ export type Noticia = {
     media?: unknown;
     _type: "file";
   };
+  documentosAdicionales?: Array<{
+    asset?: SanityFileAssetReference;
+    media?: unknown;
+    _type: "file";
+    _key: string;
+  }>;
   urlExterna?: string;
   fuenteEnlace?: string;
 };
@@ -539,7 +545,7 @@ export type NOTICIA_SLUGS_QUERY_RESULT = Array<{
 
 // Source: ../src/lib/sanity/queries/noticias.ts
 // Variable: NOTICIA_BY_SLUG_QUERY
-// Query: *[_type == "noticia" && slug.current == $slug][0] {    titulo,    "slug": slug.current,    fechaPublicacion,    autor,    tipoPost,    imagenDestacada,    "documentoPdfUrl": documentoPdf.asset->url,    "documentoPdfName": documentoPdf.asset->originalFilename,    urlExterna,    fuenteEnlace  }
+// Query: *[_type == "noticia" && slug.current == $slug][0] {    titulo,    "slug": slug.current,    fechaPublicacion,    autor,    tipoPost,    imagenDestacada,    "documentoPdfUrl": documentoPdf.asset->url,    "documentoPdfName": documentoPdf.asset->originalFilename,    "documentosAdicionales": documentosAdicionales[] {      _key,      "url": asset->url,      "name": asset->originalFilename    },    urlExterna,    fuenteEnlace  }
 export type NOTICIA_BY_SLUG_QUERY_RESULT = {
   titulo: string;
   slug: string;
@@ -555,6 +561,11 @@ export type NOTICIA_BY_SLUG_QUERY_RESULT = {
   };
   documentoPdfUrl: string | null;
   documentoPdfName: string | null;
+  documentosAdicionales: Array<{
+    _key: string;
+    url: string | null;
+    name: string | null;
+  }> | null;
   urlExterna: string | null;
   fuenteEnlace: string | null;
 } | null;
@@ -697,7 +708,7 @@ declare module "@sanity/client" {
     '\n  *[_type == "noticia" && defined(slug.current)] | order(fechaPublicacion desc) [$start...$end] {\n    titulo,\n    "slug": slug.current,\n    fechaPublicacion,\n    autor,\n    tipoPost,\n    imagenDestacada\n  }\n': NOTICIAS_LIST_QUERY_RESULT;
     '\n  count(*[_type == "noticia" && defined(slug.current)])\n': NOTICIAS_COUNT_QUERY_RESULT;
     '\n  *[_type == "noticia" && defined(slug.current)] {\n    "slug": slug.current\n  }\n': NOTICIA_SLUGS_QUERY_RESULT;
-    '\n  *[_type == "noticia" && slug.current == $slug][0] {\n    titulo,\n    "slug": slug.current,\n    fechaPublicacion,\n    autor,\n    tipoPost,\n    imagenDestacada,\n    "documentoPdfUrl": documentoPdf.asset->url,\n    "documentoPdfName": documentoPdf.asset->originalFilename,\n    urlExterna,\n    fuenteEnlace\n  }\n': NOTICIA_BY_SLUG_QUERY_RESULT;
+    '\n  *[_type == "noticia" && slug.current == $slug][0] {\n    titulo,\n    "slug": slug.current,\n    fechaPublicacion,\n    autor,\n    tipoPost,\n    imagenDestacada,\n    "documentoPdfUrl": documentoPdf.asset->url,\n    "documentoPdfName": documentoPdf.asset->originalFilename,\n    "documentosAdicionales": documentosAdicionales[] {\n      _key,\n      "url": asset->url,\n      "name": asset->originalFilename\n    },\n    urlExterna,\n    fuenteEnlace\n  }\n': NOTICIA_BY_SLUG_QUERY_RESULT;
     '\n  *[_type == "noticia" && defined(slug.current) && fechaPublicacion < $fecha] | order(fechaPublicacion desc) [0] {\n    titulo,\n    "slug": slug.current\n  }\n': NOTICIA_PREV_QUERY_RESULT;
     '\n  *[_type == "noticia" && defined(slug.current) && fechaPublicacion > $fecha] | order(fechaPublicacion asc) [0] {\n    titulo,\n    "slug": slug.current\n  }\n': NOTICIA_NEXT_QUERY_RESULT;
     '*[_id == "nuevoIngreso" && _type == "nuevoIngreso"][0]': NUEVO_INGRESO_QUERY_RESULT;

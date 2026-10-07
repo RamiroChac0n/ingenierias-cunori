@@ -68,6 +68,14 @@ export const noticia = defineType({
         }),
     }),
     defineField({
+      name: 'documentosAdicionales',
+      title: 'PDFs adicionales',
+      description: 'Opcional. Para publicaciones con más de un documento (ej. varios normativos).',
+      type: 'array',
+      of: [{type: 'file', options: {accept: 'application/pdf'}}],
+      hidden: ({parent}) => parent?.tipoPost !== 'documento',
+    }),
+    defineField({
       name: 'urlExterna',
       title: 'URL externa',
       description: 'Requerida si el tipo de post es "Enlace externo".',
