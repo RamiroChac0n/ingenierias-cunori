@@ -36,7 +36,7 @@ export default async function EventoPage({ params }: PageProps) {
         ← Volver a Galería
       </Link>
       <h1 className="mt-6 text-3xl font-semibold tracking-tight sm:text-4xl">{evento.tituloEvento}</h1>
-      <p className="mt-2 text-sm text-black/50">{formatDate(evento.fechaEvento)}</p>
+      <p className="mt-2 text-sm text-black/50">{formatDate(evento.fechaEvento, evento.soloAnio ? { year: "numeric" } : undefined)}</p>
       {evento.descripcion && <p className="mt-4 max-w-3xl text-black/70">{evento.descripcion}</p>}
       <div className="mt-10">
         <PhotoGrid fotos={evento.fotosAlbum} />

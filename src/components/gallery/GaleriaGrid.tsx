@@ -12,7 +12,7 @@ type GaleriaGridProps = {
 export function GaleriaGrid({ eventos }: GaleriaGridProps) {
   const years = useMemo(
     () =>
-      Array.from(new Set(eventos.map((evento) => new Date(evento.fechaEvento).getFullYear()))).sort(
+      Array.from(new Set(eventos.map((evento) => new Date(evento.fechaEvento).getUTCFullYear()))).sort(
         (a, b) => b - a,
       ),
     [eventos],
@@ -22,7 +22,7 @@ export function GaleriaGrid({ eventos }: GaleriaGridProps) {
   const filtered =
     selectedYear === null
       ? eventos
-      : eventos.filter((evento) => new Date(evento.fechaEvento).getFullYear() === selectedYear);
+      : eventos.filter((evento) => new Date(evento.fechaEvento).getUTCFullYear() === selectedYear);
 
   return (
     <div>

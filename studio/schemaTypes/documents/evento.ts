@@ -26,6 +26,14 @@ export const evento = defineType({
       validation: (Rule) => Rule.required(),
     }),
     defineField({
+      name: 'soloAnio',
+      title: 'Mostrar solo el año',
+      description:
+        'Actívalo si no se conoce la fecha exacta del evento: el sitio mostrará únicamente el año (el día y el mes de la fecha se ignoran).',
+      type: 'boolean',
+      initialValue: false,
+    }),
+    defineField({
       name: 'descripcion',
       title: 'Descripción',
       type: 'text',
