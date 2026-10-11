@@ -1,5 +1,7 @@
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
+import Image from "next/image";
+import { urlFor } from "@/lib/sanity/image";
 import { client } from "@/lib/sanity/client";
 import {
   NOTICIA_BY_SLUG_QUERY,
@@ -41,12 +43,34 @@ export default async function NoticiaPage({ params }: PageProps) {
     client.fetch(NOTICIA_NEXT_QUERY, { fecha: noticia.fechaPublicacion }, options),
   ]);
 
+  // El _ref del asset trae las dimensiones originales ("image-<hash>-305x165-jpg"); se usan
+  // para no estirar imágenes pequeñas más allá de su tamaño real.
+  const dims = noticia.imagenDestacada?.asset?._ref.match(/-(\d+)x(\d+)-/);
+  const imageSize = dims && { width: Number(dims[1]), height: Number(dims[2]) };
+
   return (
     <div className="mx-auto max-w-7xl px-4 pb-16 sm:px-8">
       <PostHeader titulo={noticia.titulo} autor={noticia.autor} fechaPublicacion={noticia.fechaPublicacion} />
 
-      {noticia.tipoPost === "documento" && noticia.documentoPdfUrl && (
-        <DocumentPreviewBlock pdfUrl={noticia.documentoPdfUrl} fileName={noticia.documentoPdfName} />
+      {noticia.tipoPost === "documento" && (
+        <div className="space-y-6">
+          {imageSize && (
+            <Image
+              src={urlFor(noticia.imagenDestacada).width(1600).fit("max").url()}
+              alt={noticia.titulo}
+              width={imageSize.width}
+              height={imageSize.height}
+              sizes="(min-width: 1280px) 1216px, 100vw"
+              className="h-auto max-w-full rounded-2xl border border-black/5 shadow-sm"
+            />
+          )}
+          {noticia.documentoPdfUrl && (
+            <DocumentPreviewBlock pdfUrl={noticia.documentoPdfUrl} fileName={noticia.documentoPdfName} />
+          )}
+          {noticia.documentosAdicionales?.map(
+            (doc) => doc.url && <DocumentPreviewBlock key={doc._key} pdfUrl={doc.url} fileName={doc.name} />,
+          )}
+        </div>
       )}
 
       {noticia.tipoPost === "enlace_externo" && noticia.urlExterna && (

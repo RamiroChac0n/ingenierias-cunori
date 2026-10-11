@@ -31,6 +31,7 @@ export type Evento = {
   tituloEvento: string;
   slug: Slug;
   fechaEvento: string;
+  soloAnio?: boolean;
   descripcion?: string;
   imagenPortada: {
     asset?: SanityImageAssetReference;
@@ -144,6 +145,12 @@ export type Noticia = {
     media?: unknown;
     _type: "file";
   };
+  documentosAdicionales?: Array<{
+    asset?: SanityFileAssetReference;
+    media?: unknown;
+    _type: "file";
+    _key: string;
+  }>;
   urlExterna?: string;
   fuenteEnlace?: string;
 };
@@ -433,11 +440,12 @@ export type CARRERA_BY_SLUG_QUERY_RESULT = {
 
 // Source: ../src/lib/sanity/queries/galeria.ts
 // Variable: EVENTOS_LIST_QUERY
-// Query: *[_type == "evento" && defined(slug.current)] | order(fechaEvento desc) {    tituloEvento,    "slug": slug.current,    fechaEvento,    imagenPortada  }
+// Query: *[_type == "evento" && defined(slug.current)] | order(fechaEvento desc) {    tituloEvento,    "slug": slug.current,    fechaEvento,    soloAnio,    imagenPortada  }
 export type EVENTOS_LIST_QUERY_RESULT = Array<{
   tituloEvento: string;
   slug: string;
   fechaEvento: string;
+  soloAnio: boolean | null;
   imagenPortada: {
     asset?: SanityImageAssetReference;
     media?: unknown;
@@ -456,11 +464,12 @@ export type EVENTO_SLUGS_QUERY_RESULT = Array<{
 
 // Source: ../src/lib/sanity/queries/galeria.ts
 // Variable: EVENTO_BY_SLUG_QUERY
-// Query: *[_type == "evento" && slug.current == $slug][0] {    tituloEvento,    "slug": slug.current,    fechaEvento,    descripcion,    fotosAlbum  }
+// Query: *[_type == "evento" && slug.current == $slug][0] {    tituloEvento,    "slug": slug.current,    fechaEvento,    soloAnio,    descripcion,    fotosAlbum  }
 export type EVENTO_BY_SLUG_QUERY_RESULT = {
   tituloEvento: string;
   slug: string;
   fechaEvento: string;
+  soloAnio: boolean | null;
   descripcion: string | null;
   fotosAlbum: Array<{
     asset?: SanityImageAssetReference;
@@ -539,7 +548,7 @@ export type NOTICIA_SLUGS_QUERY_RESULT = Array<{
 
 // Source: ../src/lib/sanity/queries/noticias.ts
 // Variable: NOTICIA_BY_SLUG_QUERY
-// Query: *[_type == "noticia" && slug.current == $slug][0] {    titulo,    "slug": slug.current,    fechaPublicacion,    autor,    tipoPost,    imagenDestacada,    "documentoPdfUrl": documentoPdf.asset->url,    "documentoPdfName": documentoPdf.asset->originalFilename,    urlExterna,    fuenteEnlace  }
+// Query: *[_type == "noticia" && slug.current == $slug][0] {    titulo,    "slug": slug.current,    fechaPublicacion,    autor,    tipoPost,    imagenDestacada,    "documentoPdfUrl": documentoPdf.asset->url,    "documentoPdfName": documentoPdf.asset->originalFilename,    "documentosAdicionales": documentosAdicionales[] {      _key,      "url": asset->url,      "name": asset->originalFilename    },    urlExterna,    fuenteEnlace  }
 export type NOTICIA_BY_SLUG_QUERY_RESULT = {
   titulo: string;
   slug: string;
@@ -555,6 +564,11 @@ export type NOTICIA_BY_SLUG_QUERY_RESULT = {
   };
   documentoPdfUrl: string | null;
   documentoPdfName: string | null;
+  documentosAdicionales: Array<{
+    _key: string;
+    url: string | null;
+    name: string | null;
+  }> | null;
   urlExterna: string | null;
   fuenteEnlace: string | null;
 } | null;
@@ -690,14 +704,14 @@ declare module "@sanity/client" {
     '\n  *[_type == "carrera"] | order(lower(nombre) asc) {\n    nombre,\n    "slug": slug.current,\n    descripcionCorta\n  }\n': CARRERAS_LIST_QUERY_RESULT;
     '\n  *[_type == "carrera" && defined(slug.current)] {\n    "slug": slug.current\n  }\n': CARRERA_SLUGS_QUERY_RESULT;
     '\n  *[_type == "carrera" && slug.current == $slug][0] {\n    nombre,\n    "slug": slug.current,\n    descripcionCorta,\n    semestres,\n    creditos,\n    sistemaCreditos,\n    areasAcademicas,\n    pensumImages,\n    "pensumPdfUrl": pensumPdf.asset->url,\n    updateNote,\n    lastUpdated\n  }\n': CARRERA_BY_SLUG_QUERY_RESULT;
-    '\n  *[_type == "evento" && defined(slug.current)] | order(fechaEvento desc) {\n    tituloEvento,\n    "slug": slug.current,\n    fechaEvento,\n    imagenPortada\n  }\n': EVENTOS_LIST_QUERY_RESULT;
+    '\n  *[_type == "evento" && defined(slug.current)] | order(fechaEvento desc) {\n    tituloEvento,\n    "slug": slug.current,\n    fechaEvento,\n    soloAnio,\n    imagenPortada\n  }\n': EVENTOS_LIST_QUERY_RESULT;
     '\n  *[_type == "evento" && defined(slug.current)] {\n    "slug": slug.current\n  }\n': EVENTO_SLUGS_QUERY_RESULT;
-    '\n  *[_type == "evento" && slug.current == $slug][0] {\n    tituloEvento,\n    "slug": slug.current,\n    fechaEvento,\n    descripcion,\n    fotosAlbum\n  }\n': EVENTO_BY_SLUG_QUERY_RESULT;
+    '\n  *[_type == "evento" && slug.current == $slug][0] {\n    tituloEvento,\n    "slug": slug.current,\n    fechaEvento,\n    soloAnio,\n    descripcion,\n    fotosAlbum\n  }\n': EVENTO_BY_SLUG_QUERY_RESULT;
     '*[_id == "homePage" && _type == "homePage"][0]': HOME_PAGE_QUERY_RESULT;
     '\n  *[_type == "noticia" && defined(slug.current)] | order(fechaPublicacion desc) [$start...$end] {\n    titulo,\n    "slug": slug.current,\n    fechaPublicacion,\n    autor,\n    tipoPost,\n    imagenDestacada\n  }\n': NOTICIAS_LIST_QUERY_RESULT;
     '\n  count(*[_type == "noticia" && defined(slug.current)])\n': NOTICIAS_COUNT_QUERY_RESULT;
     '\n  *[_type == "noticia" && defined(slug.current)] {\n    "slug": slug.current\n  }\n': NOTICIA_SLUGS_QUERY_RESULT;
-    '\n  *[_type == "noticia" && slug.current == $slug][0] {\n    titulo,\n    "slug": slug.current,\n    fechaPublicacion,\n    autor,\n    tipoPost,\n    imagenDestacada,\n    "documentoPdfUrl": documentoPdf.asset->url,\n    "documentoPdfName": documentoPdf.asset->originalFilename,\n    urlExterna,\n    fuenteEnlace\n  }\n': NOTICIA_BY_SLUG_QUERY_RESULT;
+    '\n  *[_type == "noticia" && slug.current == $slug][0] {\n    titulo,\n    "slug": slug.current,\n    fechaPublicacion,\n    autor,\n    tipoPost,\n    imagenDestacada,\n    "documentoPdfUrl": documentoPdf.asset->url,\n    "documentoPdfName": documentoPdf.asset->originalFilename,\n    "documentosAdicionales": documentosAdicionales[] {\n      _key,\n      "url": asset->url,\n      "name": asset->originalFilename\n    },\n    urlExterna,\n    fuenteEnlace\n  }\n': NOTICIA_BY_SLUG_QUERY_RESULT;
     '\n  *[_type == "noticia" && defined(slug.current) && fechaPublicacion < $fecha] | order(fechaPublicacion desc) [0] {\n    titulo,\n    "slug": slug.current\n  }\n': NOTICIA_PREV_QUERY_RESULT;
     '\n  *[_type == "noticia" && defined(slug.current) && fechaPublicacion > $fecha] | order(fechaPublicacion asc) [0] {\n    titulo,\n    "slug": slug.current\n  }\n': NOTICIA_NEXT_QUERY_RESULT;
     '*[_id == "nuevoIngreso" && _type == "nuevoIngreso"][0]': NUEVO_INGRESO_QUERY_RESULT;

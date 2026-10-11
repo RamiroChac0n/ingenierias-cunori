@@ -5,6 +5,7 @@ export const EVENTOS_LIST_QUERY = defineQuery(`
     tituloEvento,
     "slug": slug.current,
     fechaEvento,
+    soloAnio,
     imagenPortada
   }
 `);
@@ -20,6 +21,7 @@ export const EVENTO_BY_SLUG_QUERY = defineQuery(`
     tituloEvento,
     "slug": slug.current,
     fechaEvento,
+    soloAnio,
     descripcion,
     fotosAlbum
   }
